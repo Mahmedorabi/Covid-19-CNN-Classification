@@ -108,6 +108,67 @@ plt.show()
 
 
 
+![model pre covid](https://github.com/Mahmedorabi/Covid_19_CNN_model/assets/105740465/6d8094a5-a9d1-4d4f-ae25-fabe7a70e785)
+
+## Model Evaluation
+- Tranining
+```
+oos,acc=model.evaluate(train_data)
+print(f'Accuracy of training is {acc*100}')
+
+```
+### Output 
+Accuracy of training is 100.0
+
+- Testing
+  ```
+  loos,acc=model.evaluate(test_data)
+  print(f'Accuracy of testing is {acc*100}')
+  ```
+  ### Output
+  
+  Accuracy of testing is 92.42424368858337
+
+## Predict a new Image 
+- **1-Give path of testing image**
+   - ```
+     testing_img="D:/Project AI/Covid19-dataset/test/Viral Pneumonia/0103.jpeg"
+     ```
+- **2-Give Class map**
+  - ```
+    class_map=dict([value,key] for key,value in train_data.class_indices.items())
+    class_map
+    ```
+    -**Function return predication image and label**
+     - ```
+       def predication (testing_img,actual_label):
+       test_img=image.load_img(testing_img,target_size=(224,224))
+       test_img_arr=image.img_to_array(test_img)/255
+       test_img_input=test_img_arr.reshape((1,test_img_arr.shape[0],
+                                         test_img_arr.shape[1],
+                                         test_img_arr.shape[2]))
+    
+       # Make predication 
+       predicate_class=np.argmax(model.predict(test_img_input))
+       predicated_map=class_map[predicate_class]
+    
+       plt.figure(figsize=(10,5))
+       plt.imshow(test_img_arr)
+       plt.grid()
+       plt.axis('off')
+       plt.title(f"Actual Label is: {actual_label} | predict label is: {predicated_map}")
+
+       ```
+      
+ 
+ ![predication covid](https://github.com/Mahmedorabi/Covid_19_CNN_model/assets/105740465/1569163b-bed3-457c-a0e5-1099be516436)
+
+
+   
+  
+
+
+
 
 
 
